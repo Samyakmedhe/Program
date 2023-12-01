@@ -1,0 +1,29 @@
+#include<stdio.h>
+void displayconvert(ivalue, cvalue)
+{
+    char i = 'A';
+    char d = 'D';
+    if(cvalue)
+    {
+        printf("%c",i);
+
+    }
+    else if(ivalue)
+    {
+        printf("%c",d);
+
+    }
+
+}
+int main ()
+{
+    char cvalue = '\0';
+
+    printf("enter charater\n");
+    scanf("%c",&cvalue);
+
+    displayconvert(cvalue);
+
+    return 0 ;
+
+}
