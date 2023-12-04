@@ -1,94 +1,169 @@
-//problem statement :Accept 2 value from user and perform the addition.
-
-//step 1 : understand the program statement 
-// conclusion :we have to accept 2 integers and prefrom its aaddtion
-
-//step 2 : write th algorithm 
-/*
-    start 
-        accept first number from user and store it into no 1
-        accept second number from user and stor it into no2
-        create one variable to store the result named as ans 
-        perform addtion of no1 and no2 , store the result int ans 
-        display the result from ans to user 
-    stop
-
-*/
-
-//step 3 : decide the programming langaunge (C,C++,Java,Pytho)
-// we slect the c programming 
-
-//step 4 :write a code 
 #include<stdio.h>
+#include<stdlib.h>
 
-/////////////////////////////////////////////////////////////////////////
-//
-//  Function name :     Addition
-//  Description :       It is use to perfor of aadition of 2 integers
-//  intput argument :   Integer ,integer
-//  output :            integer
-//  author :            samyak kailas medhe 
-//  date :              25/09/2023
-//
-/////////////////////////////////////////////////////////////////////////
-
-
-
-
-int addition (int iNo1, int iNo2)
+struct node
 {
-    int iSum = 0 ;
+    int data;
+    struct node *next;
+    struct node *prev;
+};
 
-    iSum = iNo1 + iNo2;
-    return iSum;
+typedef struct node NODE;
+typedef struct node* PNODE;
+typedef struct node** PPNODE;
 
-
-}
-
-/////////////////////////////////////////////////////////////////////////
-//
-//  enter point function of an application which perform addition of 2 integrs
-//
-/////////////////////////////////////////////////////////////////////////
-int main ()
+void Insertfirst(PPNODE Head , PPNODE Tail,int no)
 {
-    int ivalue1 = 0;
-    int ivalue2 = 0;
-    int ians = 0 ;
+    PNODE newn = (PNODE)malloc(sizeof(NODE));
+    newn->data = no;
+    newn->next = NULL;
+    newn->prev = NULL;
 
-
-    printf("enter first number :\n");
-    scanf("%d",&ivalue1);
-
-    printf("enter second number :\n");
-    scanf("%d",&ivalue2);
-
-    ians= ivalue1 + ivalue2 ;
-
-    printf("addition is : %d \n",ians);
-
-    return 0 ;
+    if((*Head == NULL)&&(*Tail == NULL))
+    {
+        *Head = newn;
+        *Tail = newn;
+    }
+    else    
+    {
+        newn->next = *Head;
+        (*Head)->prev = newn;
+        *Head = newn;  
+    }
+    (*Tail)->next = *Head;
+    (*Head)->prev = *Tail;
     
 
 }
 
-//step 5 : test th code 
-/*
-test case 1 :
-input : 10 11 
-output : 21
+void insertlast(PPNODE Head , PPNODE Tail, int no)
+{
+    PNODE newn = NULL;
+    newn = (PNODE)malloc (sizeof(NODE));
+    newn->data =no;
+    newn->next = NULL;
+    newn->prev = NULL;
 
-test case 2 :
-input : 11- 11 
-output : 0
+    if((*Head == NULL)&&(*Tail == NULL))
+    {
+        *Head = newn;
+        *Tail = newn;
 
-test case 3 :
-input : -10 -11 
-output : 21
+    }
+    else
+    {
+        newn->prev = *Tail;
+        (*Tail)->next = newn;
+        *Tail = newn;
+    }
+    (*Head)->prev = *Tail;
+    (*Tail)->next = *Head;
 
-test case 4  :
-input : 10- 11 
-output : 1
+}
+void Deletefirst(PPNODE Head, PPNODE Tail)
+{
+    if((*Head == NULL) && (*Tail == NULL))
+    {
+        return;
+    }
+    else if(*Head == *Tail)
+    {   
+        free(*Head);
+        *Head = NULL;
+        *Tail = NULL;
+
+    }
+    else
+    {
+        *Head = (*Head)->next;
+        free((*Tail)->next);
+        (*Head)->prev = *Tail;
+        (*Tail)->next = *Head;
+    }
+}
+void DeleteLast(PPNODE Head, PPNODE Tail)
+{
+    if((*Head == NULL) &&(*Head == NULL))
+    {
+        return;
+    }
+    else if(*Head == *Tail)
+    {
+        free(*Head);
+        *Head = NULL;
+        *Tail = NULL;
+
+    }
+    else
+    {
+        *Tail = (*Tail)->prev;
+        free((*Tail)->next);
+         (*Head)->prev = *Tail;
+        (*Tail)->next = *Head;
+       
+    }
+    
+}
+void Display(PNODE Head , PNODE Tail)
+{
+    printf("Number of doubly linked list : ");
+    if((Head != NULL)&&( Tail != NULL))
+    {
+        do
+        {
+            printf(" | %d | -> ",Head->data);
+            Head = Head->next;
+            
+        } while (Head != Tail ->next);
+        
+    }
+   
+}
+int Count(PNODE Head, PNODE Tail)
+{
+    int iCnt= 0;
+    if((Head != NULL) && (Head != NULL))
+    {
+        do
+        {
+            iCnt++;
+            Head = Head->next;
+        } while (Head != Tail ->next);
+        
+    }
+    return iCnt;
+}
+int main () 
+{
+
+    PNODE  first = NULL;
+    PNODE last = NULL;
+    int iRet = 0;
+
+    Insertfirst(&first, &last,101);
+    Insertfirst(&first,&last,51);
+    Insertfirst(&first,&last,21);
+    Insertfirst(&first,&last,11);
 
 
-*/
+    insertlast(&first,&last,111);
+    insertlast(&first,&last,121);
+   
+
+    Display(first , last);
+    iRet = Count(first,last);
+    printf("\ntotal number of linkedlist : %d\n ",iRet);
+
+    Deletefirst(&first,&last);
+    Display(first , last);
+    iRet = Count(first,last);
+    printf("\ntotal number of linkedlist : %d\n",iRet);
+
+    DeleteLast(&first,&last);
+     Display(first , last);
+    iRet = Count(first,last);
+    printf("\ntotal number of linkedlist : %d\n",iRet);
+
+
+    return 0;
+}
