@@ -8,14 +8,12 @@ int main ()
 {
   char FileName[30];
   char Arr[100] ={'\0'};
-  char Brr[100] ={'\0'};
-
   int fd = 0  , iRet = 0 ;
 
   printf("Enter the name of file that you want to open current directory\n");
   scanf("%s",FileName);
 
-  fd = open(FileName, O_RDWR);
+  fd = open(FileName, O_RDWR | O_APPEND);
   if(fd == -1)
   {
     printf("Unable to open the file \n",FileName);
@@ -24,11 +22,12 @@ int main ()
   {
     printf("%s gets opened Succefully with file description %d\n",FileName,fd);
     
-    iRet = read(fd ,Arr,12);
+    printf("Enter the Data that you want to write into the file :\n");
+    scanf(" %[^'\n']s",Arr);
+
+    iRet = write(fd ,Arr,strlen(Arr));
 
     printf("%d bytes gets Succfully wirtten into the file\n",iRet);
-
-    printf("Data from file is : %s\n",Brr);
 
     close(fd);
   }

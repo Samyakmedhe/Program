@@ -8,9 +8,9 @@ int main ()
 {
   char FileName[30];
   char Arr[100] ={'\0'};
-  char Brr[100] ={'\0'};
-
+  
   int fd = 0  , iRet = 0 ;
+  int iSize = 0;
 
   printf("Enter the name of file that you want to open current directory\n");
   scanf("%s",FileName);
@@ -24,11 +24,12 @@ int main ()
   {
     printf("%s gets opened Succefully with file description %d\n",FileName,fd);
     
-    iRet = read(fd ,Arr,12);
-
-    printf("%d bytes gets Succfully wirtten into the file\n",iRet);
-
-    printf("Data from file is : %s\n",Brr);
+    while ((iRet = read(fd,Arr,sizeof(Arr))) != 0)
+    {
+      printf("%d bytes gets read from the file\n",iRet);
+        iSize = iSize + iRet;
+    }
+    printf("File Contain %d bytes in it\n",iSize);
 
     close(fd);
   }

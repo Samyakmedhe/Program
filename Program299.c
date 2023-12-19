@@ -4,11 +4,13 @@
 #include<fcntl.h>
 #include<string.h>
 
+#define BUFFERSIZE 1024
+
 int main ()
 {
   char FileName[30];
-  char Arr[100] ={'\0'};
-  char Brr[100] ={'\0'};
+  char Arr[BUFFERSIZE] ={'\0'};
+  
 
   int fd = 0  , iRet = 0 ;
 
@@ -24,12 +26,11 @@ int main ()
   {
     printf("%s gets opened Succefully with file description %d\n",FileName,fd);
     
-    iRet = read(fd ,Arr,12);
-
-    printf("%d bytes gets Succfully wirtten into the file\n",iRet);
-
-    printf("Data from file is : %s\n",Brr);
-
+    while ((iRet = read(fd,Arr,sizeof(Arr))) != 0)
+    {
+        printf("%s",Arr);
+    }
+    
     close(fd);
   }
 
