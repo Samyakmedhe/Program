@@ -1,64 +1,155 @@
-//problem statement :Accept 2 value from user and perform the addition.
-
-//step 1 : understand the program statement 
-// conclusion :we have to accept 2 integers and prefrom its aaddtion
-
-//step 2 : write th algorithm 
-/*
-    start 
-        accept first number from user and store it into no 1
-        accept second number from user and stor it into no2
-        create one variable to store the result named as ans 
-        perform addtion of no1 and no2 , store the result int ans 
-        display the result from ans to user 
-    stop
-
-*/
-
-//step 3 : decide the programming langaunge (C,C++,Java,Pytho)
-// we slect the c programming 
-
-//step 4 :write a code 
 #include<stdio.h>
-int main ()
+#include<stdlib.h>
+
+struct Node
 {
-    int ivalue1 = 0;
-    int ivalue2 = 0;
-    int ians = 0 ;
+    int data;
+    struct Node *next;
+};
+typedef struct Node NODE;
+typedef struct Node * PNODE;
+typedef struct Node **PPNODE;
 
+void InsertFirst(PPNODE Head, int no)
+{
+    PNODE newn = NULL;
+    newn = (PNODE)malloc(sizeof(NODE));
 
-    printf("enter first number :\n");
-    scanf("%d",&ivalue1);
+    newn->data = no;
+    newn->next = NULL;
 
-    printf("enter second number :\n");
-    scanf("%d",&ivalue2);
+    if(*Head == NULL)
+    {
+        *Head= newn;
+    }
+    else
+    {
+        newn ->next = *Head;
+        *Head = newn;
+    }
+}
+void Insertlast(PPNODE Head, int no)
+{
+    PNODE temp = *Head;
+    PNODE newn = (PNODE)malloc(sizeof(NODE));
+   
+    newn->data = no;
+    newn->next = NULL;
 
-    ians= ivalue1 + ivalue2 ;
-
-    printf("addition is : %d \n",ians);
-
-    return 0 ;
-    
+    if(*Head == NULL)
+    {
+        *Head = newn;
+    }
+    else
+    {
+        while(temp ->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = newn;
+        
+    }
 
 }
+void Display(PNODE Head)
+{
+    printf("elment of Lisked lsit :\n");
+    while(Head != NULL)
+    {
+        printf(" | %d | -> ",Head->data);
+        Head = Head->next;
+    }
+    printf("NULL\n");
+}
 
-//step 5 : test th code 
-/*
-test case 1 :
-input : 10 11 
-output : 21
+int Count(PNODE Head)
+{
+    int iCnt = 0;
+    while (Head != NULL)
+    {
+        iCnt++;
+        Head = Head -> next;
+    }
+    return iCnt;
+    
+}
 
-test case 2 :
-input : 11- 11 
-output : 0
+void DeleteFirst(PPNODE Head)
+{
+    PNODE temp = *Head;
 
-test case 3 :
-input : -10 -11 
-output : 21
+    if(*Head == NULL)
+    {
+        return;
+    }
+    else if((*Head) -> next == NULL)
+    {
+        free(*Head);
+        *Head = NULL;
+    }
+    else
+    {
+       *Head= (*Head) ->next;
+       free(temp);
+    }
+}
 
-test case 4  :
-input : 10- 11 
-output : 1
 
+void DeleteLast(PPNODE Head)
+{
+    PNODE temp = *Head;
+    if (*Head == NULL)
+    {
+        return ;
+    }
+    else if((*Head) ->next == NULL)
+    {
+        free(*Head);
+        *Head = NULL;
+    }
+    else
+    {
+        while(temp->next->next != NULL)
+        {
+            temp = temp->next;
+        }
+        free (temp -> next);
+        temp -> next = NULL;
+    }
+}
 
-*/
+int main ()
+{
+    PNODE First = NULL;
+    int iRet = 0;
+    InsertFirst(&First,111);
+    InsertFirst(&First,101);
+    InsertFirst(&First,51);
+    InsertFirst(&First,21);
+    InsertFirst(&First,11);
+
+    Display(First);
+    iRet = Count(First);
+
+    printf("number of nodes are : %d\n",iRet);
+
+    Insertlast(&First,121);
+    Insertlast(&First,151);
+    
+    Display(First);
+    iRet = Count(First);
+
+    printf("number of nodes are : %d\n",iRet);
+
+    DeleteFirst(&First);
+    Display(First);
+    iRet = Count(First);
+    printf("number of nodes are : %d\n",iRet);
+
+     DeleteLast(&First);
+    Display(First);
+    iRet = Count(First);
+    printf("number of nodes are : %d\n",iRet);
+
+    return 0;
+}

@@ -1,78 +1,91 @@
-//problem statement :Accept 2 value from user and perform the addition.
-
-//step 1 : understand the program statement 
-// conclusion :we have to accept 2 integers and prefrom its aaddtion
-
-//step 2 : write th algorithm 
-/*
-    start 
-        accept first number from user and store it into no 1
-        accept second number from user and stor it into no2
-        create one variable to store the result named as ans 
-        perform addtion of no1 and no2 , store the result int ans 
-        display the result from ans to user 
-    stop
-
-*/
-
-//step 3 : decide the programming langaunge (C,C++,Java,Pytho)
-// we slect the c programming 
-
-//step 4 :write a code 
 #include<stdio.h>
+#include<stdlib.h>
 
-//adition is function which accept the parameter as integers and its returns integers
-
-int addition (int iNo1, int iNo2)
+struct node
 {
-    int iSum = 0 ;
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+typedef struct node NODE;
+typedef struct node* PNODE;
+typedef struct node* PPNODE;
 
-    iSum = iNo1 + iNo2;
-    return iSum;
+void InsertFirst(PPNODE Head, int no)
+{
+    PNODE newn = NULL;
+    newn =(PNODE)malloc(sizeof(NODE));
 
+    newn->data = no;
+    newn->next = NULL;
 
 }
 
-
-int main ()
+void InsertLast(PPNODE Head, int no)
 {
-    int ivalue1 = 0;
-    int ivalue2 = 0;
-    int ians = 0 ;
+    
+}
+
+void DeleteFirst(PPNODE Head, int no)
+{
+    
+}
+void DeleteLast(PPNODE Head, int no)
+{
+    
+}
+void InsertAtPos(PPNODE Head, int no, int Pos)
+{
+    
+}
+
+void DeleteAtPos(PPNODE Head,int no , int Pos)
+{
+
+}
+
+int main()
+{
+    PNODE first = NULL;
+
+    return 0;
+}
 
 
-    printf("enter first number :\n");
-    scanf("%d",&ivalue1);
 
-    printf("enter second number :\n");
-    scanf("%d",&ivalue2);
 
-    ians= ivalue1 + ivalue2 ;
 
-    printf("addition is : %d \n",ians);
+#include<stdio.h>
+#include<stdlib.h>
 
-    return 0 ;
+
+struct node
+{
+    int data;
+    struct node *next;
+
+};
+
+typedef struct node NODE;
+typedef struct node* PNODE;
+typedef struct node* PPNODE;
+
+void InsertFirst(PPNODE Head , int no)
+{
+    PNODE newn = NULL;
+    
+    newn =(PNODE)malloc(sizeof(NODE));
+
+    newn->data = no;
+    newn->next = NULL;
     
 
 }
+int main()
+{
+    PNODE first = NULL;
 
-//step 5 : test th code 
-/*
-test case 1 :
-input : 10 11 
-output : 21
-
-test case 2 :
-input : 11- 11 
-output : 0
-
-test case 3 :
-input : -10 -11 
-output : 21
-
-test case 4  :
-input : 10- 11 
-output : 1
+    return 0;
+}
 
 
-*/

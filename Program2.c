@@ -1,37 +1,70 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<unistd.h>
-#include<fcntl.h>
-#include<string.h>
+
+struct  node
+{
+    int data;
+    struct node *next;
+};
+
+typedef struct node NODE;
+typedef struct node* PNODE;
+typedef struct node ** PPNODE;
+
+void InsertFirst(PPNODE Head,int no)
+{
+    PNODE  newn = NULL; 
+     newn =(PNODE)malloc(sizeof(NODE));
+
+    newn->data = no;
+    newn->next = NULL;
+
+    if(*Head == NULL)
+    {
+        *Head = newn;
+    }
+    else
+    {
+        newn -> next = *Head;
+        *Head = newn;
+    }
+
+
+}
+
+void Display(PNODE Head)
+{
+    while(Head != NULL)
+    {
+        printf("| %d | ->",Head->data);
+        Head = Head->next;
+    }
+    printf("NULL\n");
+
+}
+int Count(PNODE Head)
+{
+    int iCnt = 0;
+    while (Head != NULL)
+    {
+        iCnt++;
+        Head = Head->next;
+    }
+    return iCnt;
+}
 
 int main ()
 {
-  char FileName[30];
-  char Arr[100] ={'\0'};
-  char Brr[100] ={'\0'};
+     PNODE First  = NULL;
+    int iRet = 0;
 
-  int fd = 0  , iRet = 0 ;
-
-  printf("Enter the name of file that you want to open current directory\n");
-  scanf("%s",FileName);
-
-  fd = open(FileName, O_RDWR);
-  if(fd == -1)
-  {
-    printf("Unable to open the file \n",FileName);
-  }
-  else
-  {
-    printf("%s gets opened Succefully with file description %d\n",FileName,fd);
-    
-    iRet = read(fd ,Arr,12);
-
-    printf("%d bytes gets Succfully wirtten into the file\n",iRet);
-
-    printf("Data from file is : %s\n",Brr);
-
-    close(fd);
-  }
+    InsertFirst(&First,101);
+    InsertFirst(&First,51);
+    InsertFirst(&First,21);
+    InsertFirst(&First,11);
+    Display(First);
+    iRet = Count(First);
+    printf("Number of nodes are : %d\n",iRet);
 
     return 0;
-}   
+}
